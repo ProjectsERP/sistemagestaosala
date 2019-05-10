@@ -8,7 +8,7 @@ namespace gestaosala.Controllers
 {
     public class AgendamentoController : Controller
     {
-        [Microsoft.AspNetCore.Authorization.Authorize]
+        
         public IActionResult Index()
         {
             return View();
