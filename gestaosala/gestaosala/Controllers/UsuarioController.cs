@@ -6,6 +6,7 @@ using AutoMapper;
 using gestaosala.core.manager.usuario;
 using gestaosala.core.models.usuario;
 using gestaosala.Util;
+using gestaosala.ViewModels.login;
 using gestaosala.ViewModels.usuario;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,5 +60,14 @@ namespace gestaosala.Controllers
             }
         }
         #endregion
+
+        public IActionResult Login(string ReturnUrl)
+        {
+            var viewModel = new LoginViewModel()
+            {
+                UrlRetorno = ReturnUrl
+            };
+            return View(viewModel);
+        }
     }
 }

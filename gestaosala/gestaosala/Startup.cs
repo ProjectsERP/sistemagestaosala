@@ -74,7 +74,7 @@ namespace gestaosala
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Usuario}/{action=Insert}/{id?}");
+                    template: "{controller=Usuario}/{action=Login}/{id?}");
             });
         }
     }

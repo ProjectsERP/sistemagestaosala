@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace gestaosala.ViewModels.login
 {
     public class LoginViewModel
     {
+        [HiddenInput]
         public string UrlRetorno { get; set; }
 
         [Required(ErrorMessage = "Login Obrigatório")]
