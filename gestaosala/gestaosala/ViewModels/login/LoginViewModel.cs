@@ -9,8 +9,8 @@ namespace gestaosala.ViewModels.login
 {
     public class LoginViewModel
     {
-        [HiddenInput]
-        public string UrlRetorno { get; set; }
+        //[HiddenInput]
+        //public string UrlRetorno { get; set; }
 
         [Required(ErrorMessage = "Login Obrigatório")]
         public string Login { get; set; }

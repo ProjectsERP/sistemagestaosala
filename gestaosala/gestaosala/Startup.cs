@@ -41,7 +41,6 @@ namespace gestaosala
             #region Dependency Injections
 
             services.AddTransient<IUsuarioManager, UsuarioManager>();
-
             services.AddTransient<IUsuarioProvider, UsuarioProvider>();
 
 

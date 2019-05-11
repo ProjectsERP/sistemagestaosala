@@ -21,6 +21,20 @@ namespace gestaosala.core.manager.usuario
         {
             _usuarioProvider = usuarioProvider;
         }
+
+        public async Task<bool> GetLogin(UsuarioModel usuario)
+        {
+            var response = await _usuarioProvider.GetLogin(usuario);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode || jsonResponse.Contains("false"))
+            {
+                return false;
+
+            }
+            return true;
+          
+        }
         #endregion
 
         public async Task<UsuarioModel> Insert(UsuarioModel usuario)

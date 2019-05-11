@@ -10,7 +10,7 @@ namespace gestaosala.core
 
         public static class Apis
         {
-            public static Uri Usuario => new Uri("https://localhost:4001/api/");
+            public static Uri Usuario => new Uri("https://localhost:4001/api/Usuario/");
         }
 
         #endregion

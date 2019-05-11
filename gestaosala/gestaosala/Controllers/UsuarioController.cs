@@ -30,15 +30,17 @@ namespace gestaosala.Controllers
         #endregion
 
         #region Get
+       
         [HttpGet]
         public IActionResult Insert()
         {
             return View();
         }
+
         #endregion
 
         #region Post
-       [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Insert([FromForm] UsuarioViewModel usuario)
         {
             try
@@ -61,13 +63,39 @@ namespace gestaosala.Controllers
         }
         #endregion
 
-        public IActionResult Login(string ReturnUrl)
+        [HttpGet]
+        public IActionResult Login()
         {
-            var viewModel = new LoginViewModel()
-            {
-                UrlRetorno = ReturnUrl
-            };
-            return View(viewModel);
+            return View();
         }
+
+        #region Post
+        [HttpPost]
+        public async Task<IActionResult> Login([FromForm] LoginViewModel usuario)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = new LoginViewModel
+                    {                      
+                        Login = usuario.Login,
+                        Senha = Hash.GerarHash(usuario.Senha)
+                    };
+
+                  bool usuarioLogin = await _usuarioManager.GetLogin(_mapper.Map<UsuarioModel>(user));
+                    if (usuarioLogin)
+                    return RedirectToAction("Index", "Agendamento");
+                }
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                TempData["NotifyMessage"] = "" + ex.Message;
+                return BadRequest();
+            }
+        }
+        #endregion
     }
 }

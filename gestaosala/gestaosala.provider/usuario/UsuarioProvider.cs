@@ -29,10 +29,18 @@ namespace gestaosala.provider.usuario
         }
         #endregion
 
+        #region GetLogin
+        public async Task<HttpResponseMessage> GetLogin(UsuarioModel usuario) =>
+         await new HttpClientHelper(_client)
+            .SetEndpoint($"GetLogin")
+            .WithContentSerialized(usuario)
+            .PostAsync();
+        #endregion
+
         #region Insert
         public async Task<HttpResponseMessage> Insert(UsuarioModel usuario) =>
          await new HttpClientHelper(_client)
-            .SetEndpoint($"Usuario")
+            .SetEndpoint($"Insert")
             .WithContentSerialized(usuario)
             .PostAsync();
         #endregion

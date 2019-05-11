@@ -11,5 +11,6 @@ namespace gestaosala.core.manager.usuario
     public interface IUsuarioManager
     {
        Task<UsuarioModel> Insert(UsuarioModel usuario);
+        Task<bool> GetLogin(UsuarioModel usuario);
     }
 }
