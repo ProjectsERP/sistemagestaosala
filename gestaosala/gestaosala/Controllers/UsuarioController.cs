@@ -80,12 +80,12 @@ namespace gestaosala.Controllers
                     var user = new LoginViewModel
                     {                      
                         Login = usuario.Login,
-                        Senha = Hash.GerarHash(usuario.Senha)
+                        Senha = usuario.Senha
                     };
 
                   bool usuarioLogin = await _usuarioManager.GetLogin(_mapper.Map<UsuarioModel>(user));
                     if (usuarioLogin)
-                    return RedirectToAction("Index", "Agendamento");
+                    return RedirectToAction("Post", "SalaCadastro");
                 }
                 return View();
 

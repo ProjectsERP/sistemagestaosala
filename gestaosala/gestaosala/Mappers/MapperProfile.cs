@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using gestaosala.core.models.sala;
 using gestaosala.core.models.usuario;
 using gestaosala.ViewModels.login;
+using gestaosala.ViewModels.sala;
 using gestaosala.ViewModels.usuario;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,7 @@ namespace gestaosala.Mappers
 
             CreateMap<UsuarioModel, UsuarioViewModel>().ReverseMap();
             CreateMap<UsuarioModel, LoginViewModel>().ReverseMap();
+            CreateMap<SalaModel, SalaViewModel>().ReverseMap();
 
             #endregion
         }

@@ -1,0 +1,35 @@
+﻿@model gestaosala.ViewModels.sala.SalaViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+
+<h2>Cadastrar Sala</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Post" asp-controller="SalaCadastro" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SalaTitulo" class="control-label"></label>
+                <input asp-for="SalaTitulo" class="form-control" />
+                <span asp-validation-for="SalaTitulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalaDescricao" class="control-label"></label>
+                <input asp-for="SalaDescricao" class="form-control" />
+                <span asp-validation-for="SalaDescricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Home</a> |
+    <a asp-action="Index" asp-controller="Agendamento">Ir para Agendamentos</a>
+</div>
+

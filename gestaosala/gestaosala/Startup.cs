@@ -5,8 +5,11 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
+using gestaosala.core.manager.sala;
 using gestaosala.core.manager.usuario;
+using gestaosala.core.providers.salas;
 using gestaosala.core.providers.usuario;
+using gestaosala.provider.sala;
 using gestaosala.provider.usuario;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,8 +46,10 @@ namespace gestaosala
             #region Dependency Injections
 
             services.AddTransient<IUsuarioManager, UsuarioManager>();
-            services.AddTransient<IUsuarioProvider, UsuarioProvider>();
+            services.AddTransient<ISalaManager, SalaManager>();
 
+            services.AddTransient<IUsuarioProvider, UsuarioProvider>();
+            services.AddTransient<ISalaProvider, SalaProvider>();
 
 #pragma warning disable CS0618 // Type or member is obsolete
             services.AddAutoMapper();
