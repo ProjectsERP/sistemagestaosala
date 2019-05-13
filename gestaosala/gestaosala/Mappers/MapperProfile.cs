@@ -21,7 +21,8 @@ namespace gestaosala.Mappers
             CreateMap<UsuarioModel, UsuarioViewModel>().ReverseMap();
             CreateMap<UsuarioModel, LoginViewModel>().ReverseMap();
             CreateMap<SalaModel, SalaViewModel>().ReverseMap();
-
+            CreateMap<SalaCadastroViewModel, SalaModel>().ReverseMap();
+            
             #endregion
         }
     }

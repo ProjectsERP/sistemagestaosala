@@ -1,0 +1,33 @@
+﻿@{
+    List<gestaosala.core.models.sala.SalaModel> salas = (List<gestaosala.core.models.sala.SalaModel>)TempData["Salas"];
+    // System.Data.DataTable dt = (System.Data.DataTable)TempData["Teste"];
+
+}
+
+<div class="table table-responsive">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr style="color: white; background-color:#1f8bb1; font: bold">
+                <th class="text-left">Id da Sala</th>
+                <th class="text-left">Título</th>
+                <th class="text-left">Descrição</th>
+                <th class="text-left">Excluir Sala</th>
+            </tr>
+        </thead>
+
+        <tbody id="resultadoTabelaCat">
+
+            @foreach (var item in salas)
+            {              
+                <tr style="line-height:25px;">
+                    <td>@item.SalaId</td>
+                    <td>@item.SalaTitulo</td>
+                    <td>@item.SalaDescricao</td>
+                    <td><button class="btn btn-danger" title="Excluir Sala" onclick="Deletar(@item.SalaId)">Deletar</button></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

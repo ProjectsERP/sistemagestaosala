@@ -42,7 +42,7 @@ namespace gestaosala.Controllers
                 {
                     SalaTitulo = salaViewModel.SalaTitulo,
                     SalaDescricao = salaViewModel.SalaDescricao,
-                   
+
                 };
 
                 await _salaManager.Post(_mapper.Map<SalaModel>(sala));
@@ -55,5 +55,34 @@ namespace gestaosala.Controllers
             }
         }
         #endregion
+
+        public async Task<IActionResult> _GetSalas()
+        {
+            try
+            {
+                var sala = await _salaManager.GetSalas();
+                TempData["Salas"] = sala;
+                return PartialView(sala);
+            }
+            catch (Exception ex)
+            {
+                TempData["NotifyMessage"] = "" + ex.Message;
+                return BadRequest();
+            }
+        }
+
+        public async Task<int> Deletar(int salaId)
+        {
+            try
+            {
+                var sala = await _salaManager.Delete(salaId);
+                return sala;
+            }
+            catch (Exception ex)
+            {
+                TempData["NotifyMessage"] = "" + ex.Message;
+                return -1;
+            }
+        }
     }
 }

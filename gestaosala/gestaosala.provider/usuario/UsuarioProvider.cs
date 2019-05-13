@@ -43,6 +43,6 @@ namespace gestaosala.provider.usuario
             .SetEndpoint($"Insert")
             .WithContentSerialized(usuario)
             .PostAsync();
-        #endregion
+        #endregion    
     }
 }

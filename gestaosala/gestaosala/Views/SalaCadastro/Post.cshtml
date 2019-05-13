@@ -22,7 +22,7 @@
                 <span asp-validation-for="SalaDescricao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" onclick="buscarSalas()" />
             </div>
         </form>
     </div>
@@ -32,4 +32,48 @@
     <a asp-action="Index" asp-controller="Home">Home</a> |
     <a asp-action="Index" asp-controller="Agendamento">Ir para Agendamentos</a>
 </div>
+
+<div id="_salas">
+
+</div>
+
+@section scripts {
+<script>
+    buscarSalas();
+    function buscarSalas() {
+        $.ajax({
+            url: '@Url.Action("_GetSalas", "SalaCadastro")',
+            data: {},
+            dataType: "text",
+            type: 'POST',
+            async: true,
+            success: function (data) {
+                $('#_salas').html(data);
+            }
+        });
+
+    }
+
+     function Deletar(salaId) {
+        $.ajax({
+            url: '@Url.Action("Deletar", "SalaCadastro")',
+            data: { salaId: salaId },
+            dataType: "text",
+            type: 'POST',
+            async: true,
+            success: function (data) {
+                alert(salaId);
+                buscarSalas();
+                //renderizar a partial view de novo
+
+            }
+        });
+    }
+
+</script>
+}
+
+
+
+
 

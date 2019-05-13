@@ -10,6 +10,6 @@ namespace gestaosala.core.providers.usuario
     public interface IUsuarioProvider
     {
         Task<HttpResponseMessage> Insert(UsuarioModel usuario);
-        Task<HttpResponseMessage> GetLogin(UsuarioModel usuario);
+        Task<HttpResponseMessage> GetLogin(UsuarioModel usuario);      
     }
 }

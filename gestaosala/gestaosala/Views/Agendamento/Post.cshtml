@@ -1,0 +1,64 @@
+﻿@model gestaosala.ViewModels.agenda.AgendaSalaViewModel
+
+@{
+    ViewData["Title"] = "Post";
+}
+
+<h2>Post</h2>
+
+<h4>AgendaSalaViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Post" asp-controller="Agendamento" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                @{
+
+                    List<gestaosala.ViewModels.sala.SalaCadastroViewModel> list = ViewBag.Combo;
+
+                    var itens = new List<gestaosala.ViewModels.sala.SalaCadastroViewModel>();
+
+                   
+                        foreach (var row in list)
+                        {
+                            var item = new gestaosala.ViewModels.sala.SalaCadastroViewModel { SalaId = Convert.ToInt32(row.SalaId), SalaTitulo = row.SalaTitulo };
+                            itens.Add(item);
+                        };
+
+                        @Html.LabelFor(model => model.SalaId, "Sala", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @Html.DropDownListFor(model => model.SalaId, new SelectList(itens, "SalaId", "SalaTitulo"), new { @class = "form-control", required = "required", title = "Campo Obrigatório" })
+                        @Html.ValidationMessageFor(model => model.SalaId, "", new { @class = "text-danger" })
+                    
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="AgendamentoInicial" class="control-label"></label>
+                <input asp-for="AgendamentoInicial" class="form-control" />
+                <span asp-validation-for="AgendamentoInicial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgendamentoFinal" class="control-label"></label>
+                <input asp-for="AgendamentoFinal" class="form-control" />
+                <span asp-validation-for="AgendamentoFinal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="AgendamentoStatus" /> @Html.DisplayNameFor(model => model.AgendamentoStatus)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -22,6 +22,34 @@ namespace gestaosala.core.manager.sala
         {
             _salaProvider = salaProvider;
         }
+
+        public async Task<int> Delete(int salaId)
+        {
+            var response = await _salaProvider.Delete(salaId);
+            if (!response.IsSuccessStatusCode)
+            {
+                await ErrorResponse(response, "Delete");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            return Convert.ToInt32(json);
+
+        }
+
+        public async Task<IList<SalaModel>> GetSalas()
+        {
+            var response = await _salaProvider.GetSalas();
+            if (!response.IsSuccessStatusCode)
+            {
+                await ErrorResponse(response, "Get");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            JArray jsonArray = JArray.Parse(await response.Content.ReadAsStringAsync());
+
+            return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<IList<SalaModel>>(jsonArray.ToString().TrimStart('{').TrimEnd('}')));
+         
+        }
         #endregion
 
         public async Task<SalaModel> Post(SalaModel sala)

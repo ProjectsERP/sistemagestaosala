@@ -9,5 +9,7 @@ namespace gestaosala.core.manager.sala
     public interface ISalaManager
     {
         Task<SalaModel> Post(SalaModel sala);
+        Task<IList<SalaModel>> GetSalas();
+        Task<int> Delete(int salaId);
     }
 }

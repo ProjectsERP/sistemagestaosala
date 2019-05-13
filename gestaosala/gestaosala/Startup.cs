@@ -5,10 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
+using gestaosala.core.manager.agenda;
 using gestaosala.core.manager.sala;
 using gestaosala.core.manager.usuario;
+using gestaosala.core.providers.agenda;
 using gestaosala.core.providers.salas;
 using gestaosala.core.providers.usuario;
+using gestaosala.provider.agenda;
 using gestaosala.provider.sala;
 using gestaosala.provider.usuario;
 using Microsoft.AspNetCore.Builder;
@@ -47,9 +50,11 @@ namespace gestaosala
 
             services.AddTransient<IUsuarioManager, UsuarioManager>();
             services.AddTransient<ISalaManager, SalaManager>();
+            services.AddTransient<IAgendaSalaManager, AgendaSalaManager>();
 
             services.AddTransient<IUsuarioProvider, UsuarioProvider>();
             services.AddTransient<ISalaProvider, SalaProvider>();
+            services.AddTransient<IAgendaSalaProvider, AgendaSalaProvider>();
 
 #pragma warning disable CS0618 // Type or member is obsolete
             services.AddAutoMapper();

@@ -11,5 +11,7 @@ namespace gestaosala.core.providers.salas
    public interface ISalaProvider
     {
         Task<HttpResponseMessage> Post(SalaModel sala);
+        Task<HttpResponseMessage> GetSalas();
+        Task<HttpResponseMessage> Delete(int salaId);
     }
 }

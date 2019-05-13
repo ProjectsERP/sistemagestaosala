@@ -28,12 +28,28 @@ namespace gestaosala.provider.sala
         }
         #endregion
 
+        #region Get
+        public async Task<HttpResponseMessage> GetSalas() =>
+         await new HttpClientHelper(_client)
+            .SetEndpoint($"Get")
+            .GetAsync();
+        #endregion
+    
         #region Post
         public async Task<HttpResponseMessage> Post(SalaModel sala) =>
          await new HttpClientHelper(_client)
             .SetEndpoint($"Post")
             .WithContentSerialized(sala)
             .PostAsync();
+        #endregion
+
+        #region Delete
+        public async Task<HttpResponseMessage> Delete(int salaId) =>
+         await new HttpClientHelper(_client)
+            .SetEndpoint($"Delete/{salaId}")
+            .DeleteAsync();
+
+        //  .SetEndpoint($"get/{estadoId.ToString()}")
         #endregion
     }
 }
