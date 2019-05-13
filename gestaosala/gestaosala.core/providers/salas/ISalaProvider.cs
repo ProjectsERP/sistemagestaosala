@@ -12,6 +12,7 @@ namespace gestaosala.core.providers.salas
     {
         Task<HttpResponseMessage> Post(SalaModel sala);
         Task<HttpResponseMessage> GetSalas();
-        Task<HttpResponseMessage> Delete(int salaId);
+        Task<HttpResponseMessage> GetSalasBySalaId(int salaId);
+        Task<HttpResponseMessage> Delete(int salaId); 
     }
 }

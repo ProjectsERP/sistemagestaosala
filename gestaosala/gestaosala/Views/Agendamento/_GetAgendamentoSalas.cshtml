@@ -1,30 +1,37 @@
 ﻿@{
-    List<gestaosala.core.models.sala.SalaModel> salas = (List<gestaosala.core.models.sala.SalaModel>)TempData["AgendamentoSalas"];
+    List<gestaosala.ViewModels.agenda.AgendaSalaViewModel> salas =
+            (List<gestaosala.ViewModels.agenda.AgendaSalaViewModel>)TempData["AgendamentoSalas"];
     var teste = salas;
-   
+
 }
 
 <div class="table table-responsive">
     <table class="table table-hover table-striped">
         <thead>
             <tr style="color: white; background-color:#1f8bb1; font: bold">
+                <th class="text-left">Id do Agendamento</th>
                 <th class="text-left">Id da Sala</th>
                 <th class="text-left">Título</th>
-                <th class="text-left">Descrição</th>
-                <th class="text-left">Excluir Sala</th>
+                <th class="text-left">Data Inicial</th>
+                <th class="text-left">Data Final</th>
+                <th class="text-left">Status</th>
+                <th class="text-left">Excluir Agendamento</th>
             </tr>
         </thead>
-        
+
         <tbody id="resultadoTabelaCat">
 
             @foreach (var item in salas)
             {
-                <tr style="line-height:25px;">
-                    <td>@item.SalaId</td>
-                    <td>@item.SalaTitulo</td>
-                    <td>@item.SalaDescricao</td>
-                    @*<td><button class="btn btn-danger" title="Excluir Sala" onclick="Deletar(@item.SalaId)">Deletar</button></td>*@
-                </tr>
+            <tr style="line-height:25px;">
+                <td>@item.AgendamentoId</td>
+                <td>@item.SalaId</td>
+                <td>@item.salaModel.SalaTitulo</td>
+                <td>@item.AgendamentoInicial</td>
+                <td>@item.AgendamentoFinal</td>
+                <td>@item.AgendamentoStatus</td>
+                <td><button class="btn btn-danger" title="Excluir Sala" onclick="Deletar(@item.AgendamentoId, @item.SalaId)">Deletar</button></td>
+            </tr>
             }
 
         </tbody>

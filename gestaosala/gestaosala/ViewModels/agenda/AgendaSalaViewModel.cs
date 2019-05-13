@@ -9,6 +9,7 @@ namespace gestaosala.ViewModels.agenda
 {
     public class AgendaSalaViewModel
     {
+        public int AgendamentoId { get; set; }
         public int SalaId { get; set; }
         public DateTime AgendamentoInicial { get; set; }
         public DateTime AgendamentoFinal { get; set; }

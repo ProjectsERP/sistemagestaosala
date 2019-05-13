@@ -50,6 +50,21 @@ namespace gestaosala.core.manager.sala
             return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<IList<SalaModel>>(jsonArray.ToString().TrimStart('{').TrimEnd('}')));
          
         }
+
+        public async Task<SalaModel> GetSalasBySalaId(int salaId)
+        {
+            var response = await _salaProvider.GetSalasBySalaId(salaId);
+            if (!response.IsSuccessStatusCode)
+            {
+                await ErrorResponse(response, "Get");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            JObject jsonParse = JObject.Parse(json);
+
+            var _sala = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<SalaModel>(jsonParse.ToString()));
+            return _sala;
+        }
         #endregion
 
         public async Task<SalaModel> Post(SalaModel sala)

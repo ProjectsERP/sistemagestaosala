@@ -36,6 +36,12 @@ namespace gestaosala.provider.agenda
         await new HttpClientHelper(_client)
            .SetEndpoint($"Get")
            .GetAsync();
+
+        public async Task<HttpResponseMessage> GetVerificaAgendamento(AgendaSalaModel agendaSalaModel) =>
+          await new HttpClientHelper(_client)
+           .SetEndpoint($"GetSalaAgendada")
+           .WithContentSerialized(agendaSalaModel)
+           .PostAsync();
         #endregion
 
         #region Post
@@ -45,7 +51,13 @@ namespace gestaosala.provider.agenda
             .WithContentSerialized(agendasala)
             .PostAsync();
 
+        #endregion
 
+        #region Delete
+        public async Task<HttpResponseMessage> Delete(int agendamentoId, int salaId) =>
+         await new HttpClientHelper(_client)
+            .SetEndpoint($"Delete/{agendamentoId}/{salaId}")
+            .DeleteAsync();
         #endregion
     }
 }

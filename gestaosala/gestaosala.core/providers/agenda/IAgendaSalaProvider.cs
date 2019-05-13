@@ -11,6 +11,7 @@ namespace gestaosala.core.providers.agenda
     {
         Task<HttpResponseMessage> Post(AgendaSalaModel agendaSala);
         Task<HttpResponseMessage> GetAgendaSala();
-        Task<HttpResponseMessage> Delete(int salaId);
+        Task<HttpResponseMessage> Delete(int agendamentoId, int salaId);
+        Task<HttpResponseMessage> GetVerificaAgendamento(AgendaSalaModel agendaSalaModel);
     }
 }

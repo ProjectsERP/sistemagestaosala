@@ -33,8 +33,13 @@ namespace gestaosala.provider.sala
          await new HttpClientHelper(_client)
             .SetEndpoint($"Get")
             .GetAsync();
+  
+        public async Task<HttpResponseMessage> GetSalasBySalaId(int salaId) =>
+        await new HttpClientHelper(_client)
+           .SetEndpoint($"Get/{salaId}")
+           .GetAsync();
         #endregion
-    
+
         #region Post
         public async Task<HttpResponseMessage> Post(SalaModel sala) =>
          await new HttpClientHelper(_client)

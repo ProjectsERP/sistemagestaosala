@@ -3,10 +3,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-<p>
-    Agendamento de Salas
-</p>
+<h2> Salas agendadas</h2>
 
 <div id="_salas">
 
@@ -30,10 +27,10 @@
 
     }
 
-     function Deletar(salaId) {
+        function Deletar(agendamentoId, salaId) {
         $.ajax({
-            url: '@Url.Action("Deletar", "SalaCadastro")',
-            data: { salaId: salaId },
+            url: '@Url.Action("Deletar", "Agendamento")',
+            data: { 'agendamentoId': agendamentoId, 'salaId': salaId},
             dataType: "text",
             type: 'POST',
             async: true,

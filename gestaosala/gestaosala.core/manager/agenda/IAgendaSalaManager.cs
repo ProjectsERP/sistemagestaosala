@@ -10,6 +10,7 @@ namespace gestaosala.core.manager.agenda
     {
         Task<AgendaSalaModel> Insert(AgendaSalaModel agendaSala);
         Task<IList<AgendaSalaModel>> GetAgendaSala();
-        Task<int> Delete(int salaId);
+        Task<int> Delete(int agendamentoId, int salaId);
+        Task<bool> GetVerificaAgendamento(AgendaSalaModel agendaSalaModel);
     }
 }

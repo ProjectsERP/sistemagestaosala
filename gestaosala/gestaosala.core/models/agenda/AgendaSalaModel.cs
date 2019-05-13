@@ -6,6 +6,7 @@ namespace gestaosala.core.models.agenda
 {
     public class AgendaSalaModel
     {
+        public int AgendamentoId { get; set; }
         public int SalaId { get; set; }
         public DateTime AgendamentoInicial { get; set; }
         public DateTime AgendamentoFinal { get; set; }

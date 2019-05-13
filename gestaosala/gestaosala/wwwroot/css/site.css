@@ -35,3 +35,8 @@ body {
         display: none;
     }
 }
+
+.navBarTopo {
+    background-color: #1f8bb1;
+    border-color: #1f8bb1;
+}

@@ -20,7 +20,7 @@ namespace gestaosala.Controllers
         private readonly IMapper _mapper;
         private readonly IAgendaSalaManager _agendaSalaManager;
         private readonly ISalaManager _salaManager;
-       
+
         #endregion
 
         #region Constructor    
@@ -36,7 +36,7 @@ namespace gestaosala.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-          
+
             return View();
         }
 
@@ -44,20 +44,16 @@ namespace gestaosala.Controllers
         {
             try
             {
+                IList<AgendaSalaViewModel> agendas = new List<AgendaSalaViewModel>();
+                agendas = _mapper.Map<List<AgendaSalaViewModel>>(await _agendaSalaManager.GetAgendaSala());
 
-                IList<SalaModel> agendas = new List<SalaModel>();
-                var agendamentoSala = await _salaManager.GetSalas();
-                foreach(var i in agendamentoSala)
+                foreach (var agenda in agendas)
                 {
-                    SalaModel agenda = new SalaModel();
-                    agenda.SalaId = i.SalaId;
-                    agenda.SalaTitulo = i.SalaTitulo;
-                    agenda.SalaDescricao = i.SalaDescricao;
-                    agendas.Add(agenda);
+                    agenda.salaModel = (await _salaManager.GetSalasBySalaId(agenda.SalaId));
                 }
 
                 TempData["AgendamentoSalas"] = agendas;
-                var agendamentos = JsonConvert.SerializeObject(agendas);
+                //var agendamentos = JsonConvert.SerializeObject(agendas);
                 return PartialView(agendas);
             }
             catch (Exception ex)
@@ -72,12 +68,7 @@ namespace gestaosala.Controllers
         {
             try
             {
-  
-                //IList<SalaCadastroViewModel> salas = new List<SalaCadastroViewModel>();
-
-                //salas = _mapper.Map<IList<SalaCadastroViewModel>>( await _salaManager.GetSalas());
-
-                ViewBag.Combo =  _mapper.Map<IList<SalaCadastroViewModel>>(await _salaManager.GetSalas());
+                ViewBag.Combo = _mapper.Map<IList<SalaCadastroViewModel>>(await _salaManager.GetSalas());
 
                 return View();
             }
@@ -85,7 +76,7 @@ namespace gestaosala.Controllers
             {
                 TempData["NotifyMessage"] = "" + ex.Message;
                 return BadRequest();
-            }          
+            }
         }
 
         #region Post
@@ -94,9 +85,28 @@ namespace gestaosala.Controllers
         {
             try
             {
-                await _agendaSalaManager.Insert(_mapper.Map<AgendaSalaModel>(agendaSalaViewModel));
-                return RedirectToAction("Index", "Agendamento");
+                var verificaSalaAgendada = _agendaSalaManager.GetVerificaAgendamento(_mapper.Map<AgendaSalaModel>(agendaSalaViewModel));
+
+                if(agendaSalaViewModel.AgendamentoFinal < agendaSalaViewModel.AgendamentoInicial)
+                {
+                    ViewBag.message = "Data Inicial maior que data final";
+                    ViewBag.Combo = _mapper.Map<IList<SalaCadastroViewModel>>(await _salaManager.GetSalas());
+                    return View();
+                }
+
+                if( verificaSalaAgendada.Result == true)
+                {
+                    ViewBag.message = "Sala ja agendada nesse periodo";
+                    ViewBag.Combo = _mapper.Map<IList<SalaCadastroViewModel>>(await _salaManager.GetSalas());
+                    return View();
+                }
+                else
+                {
+                    await _agendaSalaManager.Insert(_mapper.Map<AgendaSalaModel>(agendaSalaViewModel));
+                    return RedirectToAction("Index", "Agendamento");
+                }
             }
+    
             catch (Exception ex)
             {
                 TempData["NotifyMessage"] = "" + ex.Message;
@@ -104,5 +114,19 @@ namespace gestaosala.Controllers
             }
         }
         #endregion
+
+        public async Task<int> Deletar(int agendamentoId, int salaId)
+        {
+            try
+            {
+                var sala = await _agendaSalaManager.Delete(agendamentoId, salaId);
+                return sala;
+            }
+            catch (Exception ex)
+            {
+                TempData["NotifyMessage"] = "" + ex.Message;
+                return -1;
+            }
+        }
     }
 }

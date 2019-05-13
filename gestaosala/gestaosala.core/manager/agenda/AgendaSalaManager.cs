@@ -23,9 +23,16 @@ namespace gestaosala.core.manager.agenda
         }
         #endregion
 
-        public Task<int> Delete(int salaId)
+        public async Task<int> Delete(int agendamentoId, int salaId)
         {
-            throw new NotImplementedException();
+            var response = await _agendaSalaProvider.Delete(agendamentoId, salaId);
+            if (!response.IsSuccessStatusCode)
+            {
+                await ErrorResponse(response, "Delete");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            return Convert.ToInt32(json);
         }
 
         public async Task<IList<AgendaSalaModel>> GetAgendaSala()
@@ -40,6 +47,18 @@ namespace gestaosala.core.manager.agenda
             JArray jsonArray = JArray.Parse(await response.Content.ReadAsStringAsync());
 
             return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<IList<AgendaSalaModel>>(jsonArray.ToString().TrimStart('{').TrimEnd('}')));
+        }
+
+        public async Task<bool> GetVerificaAgendamento(AgendaSalaModel agendaSalaModel)
+        {
+            var response = await _agendaSalaProvider.GetVerificaAgendamento(agendaSalaModel);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode || jsonResponse.Contains("false"))
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task<AgendaSalaModel> Insert(AgendaSalaModel agendaSala)
