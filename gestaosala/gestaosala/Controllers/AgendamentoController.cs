@@ -10,6 +10,7 @@ using gestaosala.core.models.sala;
 using gestaosala.ViewModels.agenda;
 using gestaosala.ViewModels.sala;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace gestaosala.Controllers
 {
@@ -19,7 +20,7 @@ namespace gestaosala.Controllers
         private readonly IMapper _mapper;
         private readonly IAgendaSalaManager _agendaSalaManager;
         private readonly ISalaManager _salaManager;
-
+       
         #endregion
 
         #region Constructor    
@@ -35,7 +36,35 @@ namespace gestaosala.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+          
             return View();
+        }
+
+        public async Task<IActionResult> _GetAgendamentoSalas()
+        {
+            try
+            {
+
+                IList<SalaModel> agendas = new List<SalaModel>();
+                var agendamentoSala = await _salaManager.GetSalas();
+                foreach(var i in agendamentoSala)
+                {
+                    SalaModel agenda = new SalaModel();
+                    agenda.SalaId = i.SalaId;
+                    agenda.SalaTitulo = i.SalaTitulo;
+                    agenda.SalaDescricao = i.SalaDescricao;
+                    agendas.Add(agenda);
+                }
+
+                TempData["AgendamentoSalas"] = agendas;
+                var agendamentos = JsonConvert.SerializeObject(agendas);
+                return PartialView(agendas);
+            }
+            catch (Exception ex)
+            {
+                TempData["NotifyMessage"] = "" + ex.Message;
+                return BadRequest();
+            }
         }
 
         [HttpGet]
@@ -43,6 +72,7 @@ namespace gestaosala.Controllers
         {
             try
             {
+  
                 //IList<SalaCadastroViewModel> salas = new List<SalaCadastroViewModel>();
 
                 //salas = _mapper.Map<IList<SalaCadastroViewModel>>( await _salaManager.GetSalas());
@@ -65,7 +95,7 @@ namespace gestaosala.Controllers
             try
             {
                 await _agendaSalaManager.Insert(_mapper.Map<AgendaSalaModel>(agendaSalaViewModel));
-                return View("Index");
+                return RedirectToAction("Index", "Agendamento");
             }
             catch (Exception ex)
             {

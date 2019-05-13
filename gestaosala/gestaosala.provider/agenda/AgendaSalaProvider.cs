@@ -32,10 +32,10 @@ namespace gestaosala.provider.agenda
             throw new NotImplementedException();
         }
 
-        public Task<IList<HttpResponseMessage>> GetAgendaSala()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<HttpResponseMessage> GetAgendaSala() =>
+        await new HttpClientHelper(_client)
+           .SetEndpoint($"Get")
+           .GetAsync();
         #endregion
 
         #region Post
@@ -44,6 +44,8 @@ namespace gestaosala.provider.agenda
             .SetEndpoint($"Post")
             .WithContentSerialized(agendasala)
             .PostAsync();
+
+
         #endregion
     }
 }

@@ -28,9 +28,18 @@ namespace gestaosala.core.manager.agenda
             throw new NotImplementedException();
         }
 
-        public Task<IList<AgendaSalaModel>> GetAgendaSala()
+        public async Task<IList<AgendaSalaModel>> GetAgendaSala()
         {
-            throw new NotImplementedException();
+            var response = await _agendaSalaProvider.GetAgendaSala();
+            if (!response.IsSuccessStatusCode)
+            {
+                await ErrorResponse(response, "Get");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            JArray jsonArray = JArray.Parse(await response.Content.ReadAsStringAsync());
+
+            return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<IList<AgendaSalaModel>>(jsonArray.ToString().TrimStart('{').TrimEnd('}')));
         }
 
         public async Task<AgendaSalaModel> Insert(AgendaSalaModel agendaSala)

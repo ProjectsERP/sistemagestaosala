@@ -8,3 +8,43 @@
     Agendamento de Salas
 </p>
 
+<div id="_salas">
+
+</div>
+
+
+@section scripts {
+    <script>
+    buscarSalas();
+    function buscarSalas() {
+        $.ajax({
+            url: '@Url.Action("_GetAgendamentoSalas", "Agendamento")',
+            data: {},
+            dataType: "text",
+            type: 'POST',
+            async: true,
+            success: function (data) {
+                $('#_salas').html(data);
+            }
+        });
+
+    }
+
+     function Deletar(salaId) {
+        $.ajax({
+            url: '@Url.Action("Deletar", "SalaCadastro")',
+            data: { salaId: salaId },
+            dataType: "text",
+            type: 'POST',
+            async: true,
+            success: function (data) {
+                alert(salaId);
+                buscarSalas();
+                //renderizar a partial view de novo
+
+            }
+        });
+    }
+
+    </script>
+}

@@ -10,7 +10,7 @@ namespace gestaosala.core.providers.agenda
     public interface IAgendaSalaProvider
     {
         Task<HttpResponseMessage> Post(AgendaSalaModel agendaSala);
-        Task<IList<HttpResponseMessage>> GetAgendaSala();
+        Task<HttpResponseMessage> GetAgendaSala();
         Task<HttpResponseMessage> Delete(int salaId);
     }
 }

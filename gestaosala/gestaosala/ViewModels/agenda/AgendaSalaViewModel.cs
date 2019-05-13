@@ -13,6 +13,8 @@ namespace gestaosala.ViewModels.agenda
         public DateTime AgendamentoInicial { get; set; }
         public DateTime AgendamentoFinal { get; set; }
         public bool AgendamentoStatus { get; set; }
-       // public SalaModel salaModel { get; set; }
+        public SalaModel salaModel { get; set; }
+        //public string SalaTitulo { get; set; }
+        //public string SalaDescricao { get; set; }
     }
 }
