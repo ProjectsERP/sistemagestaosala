@@ -4,6 +4,13 @@
     ViewData["Title"] = "Login";
 }
 
+@if (!string.IsNullOrEmpty(ViewBag.message))
+{
+    <script type="text/javascript">
+        alert("@ViewBag.message");
+    </script>
+}
+
 <h2>Login</h2>
 
 <hr />
@@ -11,7 +18,7 @@
     <div class="col-md-4">
         <form asp-action="Login" asp-controller="Usuario" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-          
+
             <div class="form-group">
                 <label asp-for="Login" class="control-label"></label>
                 <input asp-for="Login" class="form-control" />

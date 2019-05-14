@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gestaosala.Controllers
 {
-  
+
     public class UsuarioController : Controller
     {
         #region Object
@@ -30,7 +30,7 @@ namespace gestaosala.Controllers
         #endregion
 
         #region Get
-       
+
         [HttpGet]
         public IActionResult Insert()
         {
@@ -49,9 +49,9 @@ namespace gestaosala.Controllers
                 {
                     Nome = usuario.Nome,
                     Login = usuario.Login,
-                    Senha = Hash.GerarHash(usuario.Senha)
+                    Senha = usuario.Senha
                 };
-           
+
                 await _usuarioManager.Insert(_mapper.Map<UsuarioModel>(user));
                 return RedirectToAction("Index", "Home");
             }
@@ -78,15 +78,19 @@ namespace gestaosala.Controllers
                 if (ModelState.IsValid)
                 {
                     var user = new LoginViewModel
-                    {                      
+                    {
                         Login = usuario.Login,
-                        Senha = usuario.Senha
+                        Senha = Hash.GerarHash(usuario.Senha)
                     };
 
-                  bool usuarioLogin = await _usuarioManager.GetLogin(_mapper.Map<UsuarioModel>(user));
+                    bool usuarioLogin = await _usuarioManager.GetLogin(_mapper.Map<UsuarioModel>(user));
                     if (usuarioLogin)
-                    return RedirectToAction("Post", "SalaCadastro");
+                    {
+                        ViewBag.message = "Usuario " + user.Login + " logado";
+                        return RedirectToAction("Post", "SalaCadastro");
+                    }
                 }
+                ViewBag.message = "Usuario ou senha incorreto";
                 return View();
 
             }
