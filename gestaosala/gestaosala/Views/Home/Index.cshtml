@@ -2,8 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="jumbotron">
-  <p class="text-center">
-      Gestão e Agendamento de Salas
-  </p>
+<div class="jumbotron" style="padding:15px; margin:15px">
+
+    <div class="panel-body" style="text-align:center; font-size:16px">
+        <a asp-action="Insert" asp-controller="Usuario">Cadastrar-se</a> |
+        <a asp-action="Login" asp-controller="Usuario">Login</a>
+    </div>
+
 </div>
