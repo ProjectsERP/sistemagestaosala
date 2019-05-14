@@ -83,7 +83,7 @@ namespace gestaosala.Controllers
                         Senha = Hash.GerarHash(usuario.Senha)
                     };
 
-                    bool usuarioLogin = await _usuarioManager.GetLogin(_mapper.Map<UsuarioModel>(user));
+                    bool usuarioLogin = await _usuarioManager.GetLogin(_mapper.Map<UsuarioModel>(usuario));
                     if (usuarioLogin)
                     {
                         ViewBag.message = "Usuario " + user.Login + " logado";
